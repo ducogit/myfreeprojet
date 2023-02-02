@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+
+</head>
+<body style="background: transparent">
+
+<div class="container-fluid" id="containerPrincipale">
+    <div class="row">
+        <div class="boutons_modals head" style="margin-left: 18px;width: calc(100% - 36px)">
+            <ul class="ul-nav">
+                <li>
+                    <h4 style="color: #aaa;font-size: 18px;font-family: cursive;font-weight: 700;">Bloc</h4>
+                </li>
+            </ul>
+            <ul class="ul-nav" style="margin-right: 0">
+                <div class="input-group inputSearchStock" id="inputSearch">
+                    <input type="text" required class="form-control dropdown-toggle" placeholder="Search..." id="input-search-bloc" style="width: 180px">
+                    <button id="btn-search-stick" class="input-group-text btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="produitDetails br" style="height: 100vh;margin: 10px 5px 10px 5px;">
+        <div class="mb-3 produitContents produitContentPages">
+            <div class="row">
+                <div class="col-12">
+                    <div id="factureListePage" class="card receptionContent active" style="display: block" >
+                        <div class="card-body" style="height: 90vh">
+                            <div class="row mb-4">
+                                <div class="col-12 boutons_modals">
+                                    <div class="d-inline-flex ul-nav ps-2 pe-2 me-2" id="inputDate2">
+                                        <a type="button" id="btnTousBloc" class="btn btn-primary mr-1 ">Tous</a>
+                                        <a type="button" id="btnOccupeBloc" class="btn btn-warning mr-1 ">Occupé</a>
+                                        <a type="button" id="btnLibreBloc" class="btn btn-success mr-1 ">Libre</a>
+                                        <a type="button" id="btnAjouterType" class="btn btn-primary mr-1">Nouveau type</a>
+                                        <a type="button" id="btnAjouterBloc" class="btn btn-primary mr-1">Ajouter bloc</a>
+                                    </div>
+                                    <div class="d-inline-flex float-end ps-2 pe-2 me-0">
+                                        <ul class="ul-nav" style="margin-right: 0">
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnExportExcelBloc"><i class="ri ri-file-excel-line"></i> </a>
+                                            </li>
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnPrintBloc"><i class="bi bi-printer"></i> </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card" style="background: transparent;">
+                                <div class="card-body p-0 mt-1" style="background: transparent;height: 68vh" id="scroll" data-simplebar>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-5 col-sm-12">
+                                            <table class="table text-dark" id="tableTypeBloc" style="border: 1px solid #666">
+                                                <thead>
+                                                <tr style="border: 1px solid #666">
+                                                    <th>Code</th>
+                                                    <th>Type Bloc</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody style="border: 1px solid #666">
+                                                <tr >
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-9 col-md-7 col-sm-12">
+                                            <div  id="tableBloc2">
+                                                <!--<h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES BLOCS ENREGISTRES</h4>-->
+                                                <table class="table text-dark" id="tableBloc" style="border: 1px solid #666">
+                                                    <thead>
+                                                    <tr style="border: 1px solid #666">
+                                                        <th>Code</th>
+                                                        <th>Nom Bloc</th>
+                                                        <th>Type Bloc</th>
+                                                        <th>Capacité</th>
+                                                        <th>Résidence</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody style="border: 1px solid #666">
+                                                    <tr >
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------- modal print facture --------------------------------- -->
+        <div id="tableCleintImprimer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-contentClient">
+                    <div class="modal-body"  id="tableFacturePrint">
+                        <h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES FACTURES ENREGISTRES</h4>
+                        <table class="table dt-responsive nowrap w-100" id="tableFacturePrint0">
+                            <thead style="background-color: #aaa">
+                            <tr>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Facture numéro</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Date</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Client</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="facture:${facVenteList}">
+                                <td th:text="${facture.getFacVente()+'-'+facture.getId_FacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getDateFacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getNomClient()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getMontant()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ------------------------------ tous les modals------------------------- -->
+<div id="modalNouveauBloc" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 440px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouveau bloc</h6>
+                    <a type="button" id="btnCloseModalAvoir" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="slectNomResidence" class="form-label mt-1">Résidence</label>
+                            </div>
+                            <div class="col-8">
+                                <select id="slectNomResidence" class="form-select" style="width: 208px;height: 32px;border-radius: 3px">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputNomBloc" class="form-label mt-1">Nom bloc</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomBloc" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputTypeBloc" class="form-label mt-1">Type Bloc </label>
+                            </div>
+                            <div class="col-8">
+                                <select id="inputTypeBloc" class="form-select" style="width: 208px;height: 32px;border-radius: 3px">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <label style="color: #1ab6cf">CHAMBRE ----------------------------------------------------</label>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputNbrChambre" class="form-label mt-1">Nombre</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNbrChambre" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputCapaciteParChambre" class="form-label mt-1">Capacite</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputCapaciteParChambre" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerBlocModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterBlocModal" type="button" class="btn btn-primary btn-enregistrer">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalNouveauType" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 280px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouveau Type de logement</h6>
+                    <a type="button" id="btnCloseModalType" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="slectNomResidence" class="form-label mt-1">Résidence</label>
+                            </div>
+                            <div class="col-8">
+                                <select id="slectNomResidenceType" class="form-select" style="width: 208px;height: 32px;border-radius: 3px">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputNomType" class="form-label mt-1">Nom du type</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomType" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputTypeDescription" class="form-label mt-1">Description </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputTypeDescription" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerTypeModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterTypeModal" type="button" class="btn btn-primary btn-enregistrer">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ----------------------------- script -------------------------------- -->
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/table2excel.js"></script>
+<script src="../js/print.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+
+<script>
+
+    /* ---------------- select all typeBloc default ------------------------------ */
+    $.ajax({
+        type : "GET",
+        url : "/GetAllType",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableTypeBloc");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, bloc) {
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft="10px";
+                    var nouveauTexteA = document.createTextNode(bloc.codeTypeBloc);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                    nouvelleCelluleA1.style.paddingLeft="10px";
+                    var nouveauTexteA1 = document.createTextNode(bloc.nomType);
+                    nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                });
+            }
+        },
+        error: function (e){
+            alert("erreur e : "+e);
+        }
+    })
+
+    $.ajax({
+        type : "GET",
+        url : "/getAllBloc",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableBloc");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, bloc) {
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft = "10px";
+                    var nouveauTexteA = document.createTextNode(bloc.codeBloc);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                    nouvelleCelluleA1.style.paddingLeft = "10px";
+                    var nouveauTexteA1 = document.createTextNode(bloc.nomBloc);
+                    nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                    var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                    nouvelleCelluleA2.style.paddingLeft = "10px";
+                    var nouveauTexteA2 = document.createTextNode(bloc.typeBloc);
+                    nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                    var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                    nouvelleCelluleA3.style.paddingLeft = "10px";
+                    var nouveauTexteA3 = document.createTextNode(bloc.nbrChambreBloc);
+                    nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                    var nouvelleCelluleA4 = nouvelleLigneA.insertCell(4);
+                    nouvelleCelluleA4.style.paddingLeft = "10px";
+                    var nouveauTexteA4 = document.createTextNode(bloc.nomResidence);
+                    nouvelleCelluleA4.appendChild(nouveauTexteA4);
+
+                    /*document.getElementById("inputNomBloc").value = "";
+                    document.getElementById("inputTypeBloc").value = "";
+                    document.getElementById("inputCapaciteBloc").value = "";
+                    //document.getElementById("inputNbrChambre").value = "";
+                    document.getElementById("inputCapaciteParChambre").value = "";*/
+
+                });
+            }
+        },
+        error: function (e) {
+            alert("erreur e : " + e);
+        }
+    })
+
+    /* --------------------------- debut du type -------------------------------- */
+    var btnAjouterType = document.getElementById("btnAjouterType");
+    btnAjouterType.addEventListener('click',function (){
+        document.getElementById("modalNouveauType").style.display="block";
+        var formSelectResidenceType = document.getElementById("slectNomResidenceType");
+        $.ajax({
+            type : "GET",
+            url : "/getAllResidence",
+            success : function (result) {
+                if (result.status === "success"){
+                    //alert("succes : "+result.data)
+                    $.each(result.data, function (i,catego){
+                        var option = new Option(catego.nomResidence,catego.nomResidence);
+                        formSelectResidenceType.options[formSelectResidenceType.options.length] = option;
+                        console.log("type : "+catego.nomResidence)
+                    })
+                }
+                else {
+                    alert("Fail : "+result);
+                }
+            },
+            error : function (e) {
+                alert("Error...");
+                console.log("Error : "+e);
+            }
+        });
+    })
+
+    document.getElementById("btnCloseModalType").addEventListener('click',function (){
+        document.getElementById("modalNouveauType").style.display="none";
+    })
+    document.getElementById("btnAnnulerTypeModal").addEventListener('click',function (){
+        document.getElementById("modalNouveauType").style.display="none";
+    })
+    var btnAjouterTypeModal = document.getElementById("btnAjouterTypeModal");
+    btnAjouterTypeModal.addEventListener('click',function (){
+
+        /*- --------------------- insertion des donnees ---------------- */
+        var formDataTB = {
+            codeTypeBloc : "",
+            residenceType : $("#slectNomResidenceType").val(),
+            nomType : $("#inputNomType").val(),
+            descriptionType : $("#inputTypeDescription").val(),
+            dateTypeBloc : new Date()
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url : "/SaveBlocTypeC",
+            data : JSON.stringify(formDataTB),
+            dataType : 'json',
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableTypeBloc");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, bloc) {
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft="10px";
+                        var nouveauTexteA = document.createTextNode(bloc.codeTypeBloc);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                        nouvelleCelluleA1.style.paddingLeft="10px";
+                        var nouveauTexteA1 = document.createTextNode(bloc.nomType);
+                        nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                        document.getElementById("inputNomType").value = "";
+                        document.getElementById("inputTypeDescription").value = "";
+
+                    });
+                }
+            },
+            error: function (e){
+                alert("erreur e : "+e);
+            }
+        })
+    })
+    /* ------------------------------- fin du type ------------------------------- */
+
+    var btnAjouterBloc = document.getElementById("btnAjouterBloc");
+    btnAjouterBloc.addEventListener('click',function () {
+        document.getElementById("modalNouveauBloc").style.display = "block";
+        var formSelectResidence = document.getElementById("slectNomResidence");
+        $.ajax({
+            type: "GET",
+            url: "/GetAllType",
+            success: function (result) {
+                if (result.status === "success") {
+                    var selectB = document.getElementById("inputTypeBloc");
+                    var optionB = selectB.querySelectorAll("option");
+                    for (var i = 0; i < optionB.length; i++) {
+                        optionB[i].remove();
+                    }
+                    $.each(result.data, function (i, chambre) {
+
+                        var nouvelleOption = document.createElement("option");
+                        nouvelleOption.value = chambre.nomType;
+                        nouvelleOption.appendChild(document.createTextNode(chambre.nomType))
+                        selectB.appendChild(nouvelleOption);
+
+                    });
+                }
+            },
+            error: function (e) {
+                alert("erreur e : " + e);
+            }
+        })
+        $.ajax({
+            type : "GET",
+            url : "/getAllResidence",
+            success : function (result) {
+                if (result.status === "success"){
+                    var selectB1 = document.getElementById("slectNomResidence");
+                    var optionB1 = selectB1.querySelectorAll("option");
+                    for (var i = 0; i < optionB1.length; i++) {
+                        optionB1[i].remove();
+                    }
+                    $.each(result.data, function (i,catego){
+                        var nouvelleOption = document.createElement("option");
+                        nouvelleOption.value = catego.nomResidence;
+                        nouvelleOption.appendChild(document.createTextNode(catego.nomResidence))
+                        selectB1.appendChild(nouvelleOption);
+                    })
+                }
+                else {
+                    alert("Fail : "+result);
+                }
+            },
+            error : function (e) {
+                alert("Error...");
+                console.log("Error : "+e);
+            }
+        });
+    })
+    document.getElementById("btnCloseModalAvoir").addEventListener('click', function () {
+        document.getElementById("modalNouveauBloc").style.display = "none";
+    })
+    document.getElementById("btnAnnulerBlocModal").addEventListener('click', function () {
+        document.getElementById("modalNouveauBloc").style.display = "none";
+    })
+
+    var btnAjouterBlocModal = document.getElementById("btnAjouterBlocModal");
+    btnAjouterBlocModal.addEventListener('click', function () {
+
+        /*- --------------------- insertion des donnees ---------------- */
+        var formData = {
+            nomBloc: $("#inputNomBloc").val(),
+            typeBloc: $("#inputTypeBloc").val(),
+            nbrChambreBloc: $("#inputNbrChambre").val(),
+            capaciteChambre : $("#inputCapaciteParChambre").val(),
+            dateBloc: new Date(),
+            nomResidence: $("#slectNomResidence").val()
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/SaveBloc",
+            data: JSON.stringify(formData),
+            dataType: 'json',
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableBloc");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, bloc) {
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft = "10px";
+                        var nouveauTexteA = document.createTextNode(bloc.codeBloc);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                        nouvelleCelluleA1.style.paddingLeft = "10px";
+                        var nouveauTexteA1 = document.createTextNode(bloc.nomBloc);
+                        nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                        var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                        nouvelleCelluleA2.style.paddingLeft = "10px";
+                        var nouveauTexteA2 = document.createTextNode(bloc.typeBloc);
+                        nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                        var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                        nouvelleCelluleA3.style.paddingLeft = "10px";
+                        var nouveauTexteA3 = document.createTextNode(bloc.nbrChambreBloc);
+                        nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                        var nouvelleCelluleA4 = nouvelleLigneA.insertCell(4);
+                        nouvelleCelluleA4.style.paddingLeft = "10px";
+                        var nouveauTexteA4 = document.createTextNode(bloc.nomResidence);
+                        nouvelleCelluleA4.appendChild(nouveauTexteA4);
+
+                        document.getElementById("modalNouveauBloc").style.display = "none";
+
+                    });
+                }
+            },
+            error: function (e) {
+                alert("erreur e : " + e);
+            }
+        })
+    })
+
+
+
+
+
+    var boutonImprimerUser = document.getElementById("btnPrintBloc");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableBloc2',
+            type: 'html',
+            targetStyles: ['*','color:black'],
+        });
+    }
+
+
+    var boutonExcelClient = document.getElementById("btnExportExcelBloc");
+    boutonExcelClient.addEventListener('click',Export);
+    function Export() {
+        $("#tableEmployer").table2excel({
+            filename: "Bloc_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+
+
+    /* ----------------------- filtrage du tableau -------------------- */
+    var inputSearch = document.getElementById("input-search-bloc");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("tableBloc");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>

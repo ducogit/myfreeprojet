@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <!-- ********************************************** header ******************************************* -->
+    <!-- ********************************************** header ******************************************* -->
+    <header id="header" class="header active fixed-top d-flex align-items-center">
+        <div class="logo_content btnMenu">
+            <i class="ri ri-menu-fill" id="btn"></i>
+        </div>
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+        <nav class="header-nav ms-auto" style="margin-right: 0;margin-left: auto;">
+            <ul class="d-flex align-items-center">
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+                <li class="nav-item">
+                    <a class="btn" id="btnFullScreen" style="color: whitesmoke">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <div class="darklight-searchbox">
+                        <div class="darklight">
+                            <i class="bi bi-sun sun"></i>
+                            <i class="bi bi-moon moon"></i>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell" style="width: 35px"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                    </a><!-- End Notification Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            On a 4 nouvelles notifications
+                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tous</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="notification-item">
+                            <i class="bi bi-exclamation-circle text-warning"></i>
+                            <div>
+                                <h4>Fampitandremana</h4>
+                                <p>Fampitandremana mahakasika ny Produit efa holany</p>
+                                <p>Ny fotonany(12:54)</p>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="notification-item">
+                            <i class="bi bi-x-circle text-danger"></i>
+                            <div>
+                                <h4>Fambara taintaina</h4>
+                                <p>Produit efa tsisy</p>
+                                <p>Ny fotonany(12:54)</p>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="notification-item">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <div>
+                                <h4>Fambara milamina</h4>
+                                <p>Fanambarana ireo Produit voaray ao @ Stock</p>
+                                <p>Ny fotonany(12:54)</p>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="notification-item">
+                            <i class="bi bi-info-circle text-primary"></i>
+                            <div>
+                                <h4>Fanambarana tsotra</h4>
+                                <p>Vaovao mahakasika ny Produit</p>
+                                <p>Ny fotonany(12:54)</p>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon btn" href="#">
+                        <i class="bi bi-gear-fill" style="width: 35px"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown pe-3 pt-3" style="background-color: rgba(12,1,15,0.3);height: 80px">
+                    <a class="nav-link nav-profile align-items-center pe-0" href="#" data-bs-toggle="dropdown" style="padding: 0 10px;width: 120px">
+                        <img src="/images/profile1.jpg" alt="Profile" class="rounded-circle" style="margin-left: calc((100% - 36px)/2)">
+                        <label id="labelNomUserRecup" class="labelNomUser d-none d-md-block dropdown-toggle" style="padding-left: 5px">Trinito</label>
+                    </a><!-- End Profile Iamge Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>JDT. Trinito</h6>
+                            <span>Software Developer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Need Help?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a id="btnLogOut" class="dropdown-item d-flex align-items-center">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+            </ul>
+        </nav><!-- End Icons Navigation -->
+    </header><!-- End Header -->
+
+    <!-- ********************************************** sidebar ******************************************* -->
+    <div class="sidebar active">
+        <div class="logo_content">
+            <div class="logo">
+                <img src="/image/stlog.png" alt="Profile" style="width: 80px;max-width: 60px;border-radius: 5px;margin-top: 15px" />
+                <div class="logo_name">E-Lodge</div>
+            </div>
+        </div>
+        <ul class="nav_list " style="padding-bottom: 0;margin-bottom: 0">
+            <li>
+                <div class="links_name menu" style="font-family: cursive;font-weight: 700">MENU DE NAVIGATION</div>
+            </li>
+        </ul>
+        <div class="sidebar-inner mt-3" style="height: 74%" id="scroll" data-simplebar>
+            <div class="mt-0" style="height: 100%" >
+                <ul class="nav_list " style="margin-top: 0">
+                    <li id="accueil" class="li active">
+                        <a onclick="fragmentFrame('Accueil')">
+                            <i class="ri ri-layout-masonry-fill"></i>
+                            <span class="links_name active">Tableau de bord</span>
+                        </a>
+                        <span class="tooltip">Tableau de bord</span>
+                    </li>
+                    <li id="residence" class="li">
+                        <a onclick="fragmentFrame('Residence')">
+                            <i class="ri ri-shopping-cart-fill"></i>
+                            <span class="links_name">Résidence</span>
+                        </a>
+                        <span class="tooltip">Résidence</span>
+                    </li>
+                    <li id="bloc" class="li">
+                        <a onclick="fragmentFrame('Bloc')">
+                            <i class="ri ri-shopping-cart-fill"></i>
+                            <span class="links_name">Bloc</span>
+                        </a>
+                        <span class="tooltip">Bloc</span>
+                    </li>
+                    <li id="chambre" class="li">
+                        <a onclick="fragmentFrame('Chambre')">
+                            <i class="ri ri-briefcase-fill"></i>
+                            <span class="links_name">Chambre</span>
+                        </a>
+                        <span class="tooltip">Chambre</span>
+                    </li>
+                    <li id="resident" class="li">
+                        <a onclick="fragmentFrame('Resident')">
+                            <i class="ri ri-database-fill"></i>
+                            <span class="links_name">Résident</span>
+                        </a>
+                        <span class="tooltip">Résident</span>
+                    </li>
+                    <li id="inscription" class="li">
+                        <a onclick="fragmentFrame('Inscription')">
+                            <i class="ri ri-money-dollar-circle-fill"></i>
+                            <span class="links_name">Inscription</span>
+                        </a>
+                        <span class="tooltip">Inscription</span>
+                    </li>
+                    <li id="transfert" class="li">
+                        <a><!--onclick="fragmentFrame('Transfert')"-->
+                            <i class="ri ri-money-dollar-circle-fill"></i>
+                            <span class="links_name">Transfert</span>
+                        </a>
+                        <span class="tooltip">Transfert</span>
+                    </li>
+                    <li id="employer" class="li">
+                        <a onclick="fragmentFrame('Employer')">
+                            <i class="ri ri-user-6-fill"></i>
+                            <span class="links_name">Employer</span>
+                        </a>
+                        <span class="tooltip">Employer</span>
+                    </li>
+                    <!--<li id="autorisation" class="li">
+                        <a data-bs-toggle="modal" data-bs-target="#autorisationModal">
+                            <i class="ri ri-key-fill"></i>
+                            <span class="links_name">Autorisation</span>
+                        </a>
+                        <span class="tooltip">Autorisation</span>
+                    </li>-->
+                    <li id="infos-societe" class="li">
+                        <a data-bs-toggle="modal" data-bs-target="#nouveau">
+                            <i class="bi bi-question-lg"></i>
+                            <span class="links_name">A propos</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <ul class="nav_list " style="height: 100px;padding-bottom: 0;margin-top: 0px;margin-left: -15px;padding-left: 15px;border: 1px dashed;border-color: #222 transparent;background: rgba(130,130,130,0.05);">
+            <li id="infos-societe1">
+                <a data-bs-toggle="modal" data-bs-target="#nouveau" style="border: none;box-shadow: none">
+                    <img src="/images/gears_32px.png" id="info" style="text-shadow: 0px 0px 20px rgba(200,200,220,0.9);font-size: 20px;color: darkcyan"/>
+                    <span class="links_name">Maintenir</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- ********************************************** main content ******************************************* -->
+
+    <div class="home_content active">
+        <div class="content-page">
+            <div class="content">
+
+                <iframe src="Accueil" name="myFrame" id="myFrame" style="background-color: transparent;width: 100%;height: 100vh;border: none"></iframe>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- *********************************************** MAIN js ************************************** -->
+    <script src="../js/main.js"></script>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script src="../js/table2excel.js"></script>
+    <script src="../js/print.min.js"></script>
+    <script src="../js/simplebar.min.js"></script>
+
+    <script>
+        /* --------------- iframe ------------------------------------------------------------ */
+        function fragmentFrame($liens){
+            document.getElementById("myFrame").src = $liens;
+        }
+
+        /* ------------------------- plein ecran ----------------------------------------------- */
+        document.getElementById("btnFullScreen").addEventListener('click',toggleFullScreen);
+        function toggleFullScreen() {
+            var a = $(window).height() - 10;
+
+            if (!document.fullscreenElement && // alternative standard method
+                !document.mozFullScreenElement && !document.webkitFullscreenElement) { // current working methods
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.mozRequestFullScreen) {
+                    document.documentElement.mozRequestFullScreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.cancelFullScreen) {
+                    document.cancelFullScreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitCancelFullScreen) {
+                    document.webkitCancelFullScreen();
+                }
+            }
+        }
+        /* ---------------------- fin plein ecran ---------------------------------------------- */
+
+        /* ------------- toggle btn menu -------------------------------------------------- */
+        let btn = document.querySelector("#btn");
+        let header = document.querySelector("#header")
+        let sidebar = document.querySelector(".sidebar");
+        let homeContent = document.querySelector(".home_content");
+
+        //sidebar.classList.toggle("active");
+        //header.classList.toggle("active");
+        //homeContent.classList.toggle("active");
+
+        btn.onclick = function (){
+            sidebar.classList.toggle("active");
+            header.classList.toggle("active");
+            homeContent.classList.toggle("active");
+        }/* ----------------------------------- fin toggle menu ----------------------------- */
+
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        /*var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }*/
+
+
+        /* ************************ activite *********************** */
+        var accueil = document.getElementById("accueil");
+        var residence = document.getElementById("residence");
+        var bloc = document.getElementById("bloc");
+        var chambre = document.getElementById("chambre");
+        var resident = document.getElementById("resident");
+        var inscription = document.getElementById("inscription");
+        var transfert = document.getElementById("transfert");
+        var employer = document.getElementById("employer");
+        var autorisation = document.getElementById("autorisation");
+
+
+        /* ------------------ actions ---------------------------------- */
+        accueil.addEventListener('click',function (){
+            accueil.classList.add('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        residence.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.add('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        bloc.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.add('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        chambre.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.add('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        resident.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.add('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        inscription.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.add('active');
+            employer.classList.remove('active');
+            transfert.classList.remove('active');
+        })
+        employer.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.add('active');
+            transfert.classList.remove('active');
+        })
+        transfert.addEventListener('click',function (){
+            accueil.classList.remove('active');
+            residence.classList.remove('active');
+            bloc.classList.remove('active');
+            chambre.classList.remove('active');
+            resident.classList.remove('active');
+            inscription.classList.remove('active');
+            employer.classList.remove('active');
+            transfert.classList.add('active');
+        })
+
+    </script>
+
+</body>
+</html>

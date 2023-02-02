@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../vendor/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet">
+    <link href="../vendor/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+
+</head>
+<body style="background: transparent">
+
+<div class="container-fluid" id="containerPrincipale">
+    <div class="row">
+        <div class="boutons_modals head" style="margin-left: 18px;width: calc(100% - 36px)">
+            <ul class="ul-nav">
+                <li>
+                    <h4 style="color: #aaa;font-size: 18px;font-family: cursive;font-weight: 700;">Résidence</h4>
+                </li>
+            </ul>
+            <ul class="ul-nav" style="margin-right: 0">
+                <div class="input-group inputSearchStock" id="inputSearch">
+                    <input type="text" required class="form-control dropdown-toggle" placeholder="Search..." id="input-search-stock" style="width: 180px">
+                    <button id="btn-search-stick" class="input-group-text btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="produitDetails br" style="height: 100vh;margin: 10px 5px 10px 5px;">
+        <div class="mb-3 produitContents produitContentPages">
+            <div class="row">
+                <div class="col-12">
+                    <div id="factureListePage" class="card receptionContent active" style="display: block" >
+                        <div class="card-body" style="height: 90vh">
+                            <div class="row mb-4">
+                                <div class="col-12 boutons_modals">
+                                    <div class="d-inline-flex ul-nav ps-2 pe-2 me-2" id="inputDate2">
+                                        <a type="button" id="btnTousResidence" class="btn btn-primary mr-1 ">Tous</a>
+                                        <a type="button" id="btnNouveauResidence" class="btn btn-success me-1">Nouveau residence</a>
+                                    </div>
+                                    <div class="d-inline-flex float-end ps-2 pe-2 me-0">
+                                        <ul class="ul-nav" style="margin-right: 0">
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnExportExcelResidence"><i class="ri ri-file-excel-line"></i> </a>
+                                            </li>
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnPrintResidence"><i class="bi bi-printer"></i> </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card" style="background: transparent;">
+                                <div class="card-body p-0 mt-1" style="background: transparent;height: 68vh" id="scroll" data-simplebar>
+                                    <div  id="tableResidence2">
+                                        <!--<h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES RESIDENCES ENREGISTRES</h4>-->
+                                            <table class="table text-dark" id="tableResidence" style="border: 1px solid #666">
+                                                <thead>
+                                                <tr>
+                                                    <th>Residence</th>
+                                                    <th>Adresse</th>
+                                                    <th>Capacite</th>
+                                                    <th>Dirigeant</th>
+                                                    <th>Contact</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="tbody">
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------- modal print facture --------------------------------- -->
+        <div id="tableCleintImprimer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-contentClient">
+                    <div class="modal-body"  id="tableFacturePrint">
+                        <h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES FACTURES ENREGISTRES</h4>
+                        <table class="table dt-responsive nowrap w-100" id="tableFacturePrint0">
+                            <thead style="background-color: #aaa">
+                            <tr>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Facture numéro</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Date</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Client</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="facture:${facVenteList}">
+                                <td th:text="${facture.getFacVente()+'-'+facture.getId_FacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getDateFacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getNomClient()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getMontant()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ------------------ tous les modals --------------------------------- -->
+<!-- --------------------------- modal avoir ------------------------------------------------------- -->
+<div id="modalNouveauResidence" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 470px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouveau résidence</h6>
+                    <a type="button" id="btnCloseModalAvoir" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="form-label">RESIDENCE</label><label>------------------------------------------------------</label>
+                    </div>
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputNomResidence" class="form-label mt-1">Nom </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomResidence" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputAdresseResidence" class="form-label mt-1">Adresse </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputAdresseResidence" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputCapaciteResidence" class="form-label mt-1">Capacite </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputCapaciteResidence" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="form-label">DIRECTEUR</label><label>-------------------------------------------------------</label>
+                    </div>
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputNomDirecteur" class="form-label mt-1">Nom </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomDirecteur" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputPrenomDirecteur" class="form-label mt-1">Prenom </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputPrenomDirecteur" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputContactDireteur" class="form-label mt-1">Contact</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputContactDireteur" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerResidenceModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterResidenceModal" type="button" class="btn btn-primary btn-enregistrer">Accorder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- ----------------------------- script -------------------------------- -->
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/table2excel.js"></script>
+<script src="../js/print.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+<script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="../vendor/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../vendor/datatables-responsive/js/dataTables.responsive.js"></script>
+<script src="../vendor/datatables-responsive/js/responsive.bootstrap4.js"></script>
+
+
+<script>
+
+    var boutonImprimerUser = document.getElementById("btnPrintResidence");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableResidence2',
+            type: 'html',
+            targetStyles: ['*','color:black'],
+        });
+    }
+
+
+    var boutonExcelClient = document.getElementById("btnExportExcelResidence");
+    boutonExcelClient.addEventListener('click',Export);
+    function Export() {
+        $("#tableResidence").table2excel({
+            filename: "Residence_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+
+
+    /* ----------------------- filtrage du tableau -------------------- */
+    var inputSearch = document.getElementById("input-search-stock");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("tableResidence");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+    /* -------------------------------- datatable --------------------------------------- */
+    /*$("#tableResidence").DataTable({
+        responsive:true,
+        order : [ 0, 'desc' ],
+        language: {
+
+            processing:     "Traitement en cours...",
+            search:         "Rechercher&nbsp;:",
+            lengthMenu:     "_MENU_",
+            info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+            infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+            infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+            infoPostFix:    "",
+            loadingRecords: "Chargement en cours...",
+            zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+            emptyTable:     "Aucune donnée disponible dans le tableau",
+            paginate: {
+                first:      "Premier",
+                previous:   "Pr&eacute;c&eacute;dent",
+                next:       "Suivant",
+                last:       "Dernier"
+            },
+            aria:  {
+                sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+            }
+        }
+    });*/
+
+    /*  ------------------------- fin datatable ---------------------------------------------------- */
+
+
+    document.getElementById("btnNouveauResidence").addEventListener('click',function (){
+        document.getElementById("modalNouveauResidence").style.display="block";
+    })
+
+    var btnCLoseModal = document.getElementById("btnCloseModalAvoir");
+    btnCLoseModal.addEventListener('click',function (){
+        document.getElementById("modalNouveauResidence").style.display="none";
+    })
+
+    var btnAnnulerResidenceModal = document.getElementById("btnAnnulerResidenceModal");
+    btnAnnulerResidenceModal.addEventListener('click',function (){
+        document.getElementById("modalNouveauResidence").style.display="none";
+    })
+
+    var btnAjouterResidenceModal = document.getElementById("btnAjouterResidenceModal");
+    btnAjouterResidenceModal.addEventListener('click',function (){
+            var formData = {
+                nomResidence : $("#inputNomResidence").val(),
+                adresseResidence : $("#inputAdresseResidence").val(),
+                capaciteResidence : $("#inputCapaciteResidence").val(),
+                nomDirecteur : $("#inputNomDirecteur").val(),
+                prenomDirecteur : $("#inputPrenomDirecteur").val(),
+                contactDirecteur : $("#inputContactDireteur").val(),
+                dateResidence : new Date()
+            }
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url : "/SaveResidence",
+                data : JSON.stringify(formData),
+                dataType : 'json',
+                success: function (result) {
+                    if (result.status === "success") {
+                        var tableFacAvoir = document.getElementById("tableResidence");
+                        var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                        tableFacAvoir.removeChild(tbodyFacA);
+                        var nouveauTbodyA = document.createElement("tbody");
+                        tableFacAvoir.appendChild(nouveauTbodyA);
+                        $.each(result.data, function (i, residence) {
+
+                            /*------------ convert date to normale ---------------- */
+                            /*let date0000 = credit.datePayementVente.toString();
+                            let da = date0000.substring(0, date0000.indexOf('.'));
+                            let date3 = new Date(da + "-03:00")
+                            let date4 = date3.toISOString();
+                            let date5 = date4.substring(0, date4.indexOf("."));
+                            let date6 = date5.replace("T", " ")*/
+                            /*--------- fin convert date to normale ---------------- */
+
+                            var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                            var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                            nouvelleCelluleA.style.paddingLeft="10px";
+                            var nouveauTexteA = document.createTextNode(residence.nomResidence);
+                            nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                            var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                            nouvelleCelluleA1.style.paddingLeft="10px";
+                            var nouveauTexteA1 = document.createTextNode(residence.adresseResidence);
+                            nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                            var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                            nouvelleCelluleA2.style.paddingLeft="10px";
+                            var nouveauTexteA2 = document.createTextNode(residence.capaciteResidence);
+                            nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                            var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                            nouvelleCelluleA3.style.paddingLeft="10px";
+                            var nouveauTexteA3 = document.createTextNode(residence.nomDirecteur+" "+residence.prenomDirecteur);
+                            nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                            var nouvelleCelluleA4 = nouvelleLigneA.insertCell(4);
+                            nouvelleCelluleA3.style.paddingLeft="10px";
+                            var nouveauTexteA4 = document.createTextNode(residence.contactDirecteur);
+                            nouvelleCelluleA4.appendChild(nouveauTexteA4);
+
+                            document.getElementById("inputNomResidence").value = "";
+                            document.getElementById("inputAdresseResidence").value = "";
+                            document.getElementById("inputCapaciteResidence").value = "";
+                            document.getElementById("inputNomDirecteur").value = "";
+                            document.getElementById("inputPrenomDirecteur").value = "";
+                            document.getElementById("inputContactDireteur").value = "";
+                        });
+                    }
+                },
+                error: function (e){
+                    alert("erreur e : "+e);
+                }
+            })
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "/getResidence",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableResidence");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, residence) {
+
+                    /*------------ convert date to normale ---------------- */
+                    /*let date0000 = credit.datePayementVente.toString();
+                    let da = date0000.substring(0, date0000.indexOf('.'));
+                    let date3 = new Date(da + "-03:00")
+                    let date4 = date3.toISOString();
+                    let date5 = date4.substring(0, date4.indexOf("."));
+                    let date6 = date5.replace("T", " ")*/
+                    /*--------- fin convert date to normale ---------------- */
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft="10px";
+                    var nouveauTexteA = document.createTextNode(residence.nomResidence);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                    nouvelleCelluleA1.style.paddingLeft="10px";
+                    var nouveauTexteA1 = document.createTextNode(residence.adresseResidence);
+                    nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                    var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                    nouvelleCelluleA2.style.paddingLeft="10px";
+                    var nouveauTexteA2 = document.createTextNode(residence.capaciteResidence);
+                    nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                    var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                    nouvelleCelluleA3.style.paddingLeft="10px";
+                    var nouveauTexteA3 = document.createTextNode(residence.nomDirecteur+" "+residence.prenomDirecteur);
+                    nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                    var nouvelleCelluleA4 = nouvelleLigneA.insertCell(4);
+                    nouvelleCelluleA4.style.paddingLeft="10px";
+                    var nouveauTexteA4 = document.createTextNode(residence.contactDirecteur);
+                    nouvelleCelluleA4.appendChild(nouveauTexteA4);
+
+                    document.getElementById("inputNomResidence").value = "";
+                    document.getElementById("inputAdresseResidence").value = "";
+                    document.getElementById("inputCapaciteResidence").value = "";
+                    document.getElementById("inputNomDirecteur").value = "";
+                    document.getElementById("inputPrenomDirecteur").value = "";
+                    document.getElementById("inputContactDireteur").value = "";
+                });
+            }
+        },
+        error: function (e){
+            alert("erreur e : "+e);
+        }
+    })
+</script>
+
+</body>
+</html>

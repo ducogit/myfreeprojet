@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+
+</head>
+<body style="background: transparent">
+
+<div class="container-fluid" id="containerPrincipale">
+    <div class="row">
+        <div class="boutons_modals head" style="margin-left: 18px;width: calc(100% - 36px)">
+            <ul class="ul-nav">
+                <li>
+                    <h4 style="color: #aaa;font-size: 18px;font-family: cursive;font-weight: 700;">Chambre</h4>
+                </li>
+            </ul>
+            <ul class="ul-nav" style="margin-right: 0">
+                <div class="input-group inputSearchStock" id="inputSearch">
+                    <input type="text" required class="form-control dropdown-toggle" placeholder="Search..." id="input-search-stock" style="width: 180px">
+                    <button id="btn-search-stick" class="input-group-text btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="produitDetails br" style="height: 100vh;margin: 10px 5px 10px 5px;">
+        <div class="mb-3 produitContents produitContentPages">
+            <div class="row">
+                <div class="col-12">
+                    <div id="factureListePage" class="card receptionContent active" style="display: block" >
+                        <div class="card-body" style="height: 90vh">
+                            <div class="row mb-4">
+                                <div class="col-12 boutons_modals">
+                                    <div class="d-inline-flex ul-nav ps-2 pe-2 me-2" id="inputDate2">
+                                        <a type="button" id="btnTousChambre" class="btn btn-primary mr-1 ">Tous</a>
+                                        <a type="button" id="btnOccupeChambre" class="btn btn-warning mr-1 ">Occupé</a>
+                                        <a type="button" id="btnLibreChambre" class="btn btn-success mr-1 ">Libre</a>
+                                        <select name="nomBloc" id="selectBlocTypeCh" class="form-select mr-3" style="border-radius: 3px;background: #0a6a99">
+                                            <option value="Conaco">0</option>
+                                            <option value="R+3">0</option>
+                                            <option value="R+2">0</option>
+                                        </select>
+                                        <!--<a type="button" id="btnAjouterChambre" class="btn btn-primary me-1">Ajouter</a>-->
+                                    </div>
+                                    <div class="d-inline-flex float-end ps-2 pe-2 me-0">
+                                        <ul class="ul-nav" style="margin-right: 0">
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnExportExcelChambre"><i class="ri ri-file-excel-line"></i> </a>
+                                            </li>
+                                            <li class="ul-li-nav" style="margin-right: 0">
+                                                <a class="btn btn-primary ms-2" id="btnPrintChambre"><i class="bi bi-printer"></i> </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card" style="background: transparent;">
+                                <div class="card-body p-0 mt-1" style="background: transparent;height: 68vh" id="scroll" data-simplebar>
+                                    <table class="table text-dark" id="tableChambre">
+                                        <thead>
+                                        <tr style="border: 1px solid #aaa">
+                                            <th>N° Chambre</th>
+                                            <th>Capacité</th>
+                                            <th>Nombre disponible</th>
+                                            <th>Bloc</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- -------------------------- modal print facture --------------------------------- -->
+        <div id="tableCleintImprimer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-contentClient">
+                    <div class="modal-body"  id="tableFacturePrint">
+                        <h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES FACTURES ENREGISTRES</h4>
+                        <table class="table dt-responsive nowrap w-100" id="tableFacturePrint0">
+                            <thead style="background-color: #aaa">
+                            <tr>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Facture numéro</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Date</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Client</th>
+                                <th style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333">Montant</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="facture:${facVenteList}">
+                                <td th:text="${facture.getFacVente()+'-'+facture.getId_FacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getDateFacVente()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getNomClient()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                                <td th:text="${facture.getMontant()}" style="border: 1px solid transparent;border-bottom-color: #aaa;border-top-color: #aaa;color: #333"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ---------------------------- tous les modals ------------------------------------------------------- -->
+<div id="modalNouveauChambre" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 330px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouvelle chambre</h6>
+                    <a type="button" id="btnCloseModalAvoir" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="slectNomBloc" class="form-label mt-1">Bloc</label>
+                            </div>
+                            <div class="col-8">
+                                <select id="slectNomBloc" class="form-select" style="width: 208px;height: 32px;border-radius: 3px">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputNumChambre" class="form-label mt-1">N° Chambre</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNumChambre" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputCapaciteChambre" class="form-label mt-1">Capacité </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputCapaciteChambre" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="inputDispoChambre" class="form-label mt-1">Nombre Dispo </label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputDispoChambre" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerChambreModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterChambreModal" type="button" class="btn btn-primary btn-enregistrer">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ----------------------------- script -------------------------------- -->
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/table2excel.js"></script>
+<script src="../js/print.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+
+<script>
+
+
+    var boutonImprimerUser = document.getElementById("btnPrintChambre");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableChambre',
+            type: 'html',
+            targetStyles: ['*','color:black'],
+        });
+
+        //printJS.targetStyles.
+    }
+
+
+    var boutonExcelClient = document.getElementById("btnExportExcelChambre");
+    boutonExcelClient.addEventListener('click',Export);
+    function Export() {
+        $("#tableChambre").table2excel({
+            filename: "Bloc_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+
+
+    /* ----------------------- filtrage du tableau -------------------- */
+    var inputSearch = document.getElementById("input-search-stock");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("tableChambre");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+    /* -------------------------- debut get type ---------------------- */
+    var formSelectTypeBlocCh = document.getElementById("selectBlocTypeCh");
+    $.ajax({
+        type: "GET",
+        url: "/GetAllType",
+        success: function (result) {
+            if (result.status === "success") {
+                var selectB = document.getElementById("selectBlocTypeCh");
+                var optionB = selectB.querySelectorAll("option");
+                for (var i = 0; i < optionB.length; i++) {
+                    optionB[i].remove();
+                }
+                $.each(result.data, function (i, chambre) {
+
+                    var nouvelleOption = document.createElement("option");
+                    nouvelleOption.value = chambre.nomType;
+                    nouvelleOption.appendChild(document.createTextNode(chambre.nomType))
+                    selectB.appendChild(nouvelleOption);
+
+                });
+            }
+        },
+        error: function (e) {
+            alert("erreur e : " + e);
+        }
+    })
+    /*$.ajax({
+        type : "GET",
+        url : "/GetAllType",
+        success : function (result) {
+            if (result.status === "success"){
+                //alert("succes : "+result.data)
+                $.each(result.data, function (i,catego){
+                    var option = new Option(catego.nomResidence,catego.nomResidence);
+                    formSelectTypeBlocCh.options[formSelectTypeBlocCh.options.length] = option;
+                    console.log("type : "+catego.nomResidence)
+                })
+            }
+            else {
+                alert("Fail : "+result);
+            }
+        },
+        error : function (e) {
+            alert("Error...");
+            console.log("Error : "+e);
+        }
+    });*/
+    /* -------------------------- fin get type ------------------------ */
+
+    /*document.getElementById("btnAjouterChambre").addEventListener('click',function (){
+        document.getElementById("modalNouveauChambre").style.display="block";
+        var formSelectBloc = document.getElementById("slectNomBloc");
+        $.ajax({
+            type : "GET",
+            url : "/getAllBlocName",
+            success : function (result) {
+                if (result.status === "success"){
+                    $.each(result.data, function (i,catego){
+                        var option = new Option(catego.nomBloc,catego.nomBloc);
+                        formSelectBloc.options[formSelectBloc.options.length] = option;
+                        console.log("type : "+catego.nomBloc)
+                    })
+                }
+                else {
+                    alert("Fail : "+result);
+                }
+            },
+            error : function (e) {
+                alert("Error...");
+                console.log("Error : "+e);
+            }
+        });
+    })*/
+    document.getElementById("btnCloseModalAvoir").addEventListener('click',function (){
+        document.getElementById("modalNouveauChambre").style.display="none";
+    })
+    document.getElementById("btnAnnulerChambreModal").addEventListener('click',function (){
+        document.getElementById("modalNouveauChambre").style.display="none";
+    })
+    document.getElementById("btnAjouterChambreModal").addEventListener('click',function (){
+        var formData = {
+            numeroChambre : $("#inputNumChambre").val(),
+            capaciteChambre : $("#inputCapaciteChambre").val(),
+            nbrPlaceLibre : $("#inputDispoChambre").val(),
+            nomBloc : $("#slectNomBloc").val(),
+            dateChambre : new Date(),
+
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url : "/SaveChambre",
+            data : JSON.stringify(formData),
+            dataType : 'json',
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableChambre");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, chambre) {
+
+                        /*------------ convert date to normale ---------------- */
+                        /*let date0000 = credit.datePayementVente.toString();
+                        let da = date0000.substring(0, date0000.indexOf('.'));
+                        let date3 = new Date(da + "-03:00")
+                        let date4 = date3.toISOString();
+                        let date5 = date4.substring(0, date4.indexOf("."));
+                        let date6 = date5.replace("T", " ")*/
+                        /*--------- fin convert date to normale ---------------- */
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft="10px";
+                        var nouveauTexteA = document.createTextNode(chambre.numeroChambre);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                        nouvelleCelluleA1.style.paddingLeft="10px";
+                        var nouveauTexteA1 = document.createTextNode(chambre.capaciteChambre);
+                        nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                        var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                        nouvelleCelluleA2.style.paddingLeft="10px";
+                        var nouveauTexteA2 = document.createTextNode(chambre.nbrPlaceLibre);
+                        nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                        var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                        nouvelleCelluleA3.style.paddingLeft="10px";
+                        var nouveauTexteA3 = document.createTextNode(chambre.nomBloc);
+                        nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                        document.getElementById("inputNumChambre").value = "";
+                        document.getElementById("inputCapaciteChambre").value = "";
+                        document.getElementById("inputDispoChambre").value = "";
+
+                    });
+                }
+            },
+            error: function (e){
+                alert("erreur e : "+e);
+            }
+        })
+    })
+
+    $.ajax({
+        type: "GET",
+        url : "/getAllChambre",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableChambre");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, chambre) {
+
+                    /*------------ convert date to normale ---------------- */
+                    /*let date0000 = credit.datePayementVente.toString();
+                    let da = date0000.substring(0, date0000.indexOf('.'));
+                    let date3 = new Date(da + "-03:00")
+                    let date4 = date3.toISOString();
+                    let date5 = date4.substring(0, date4.indexOf("."));
+                    let date6 = date5.replace("T", " ")*/
+                    /*--------- fin convert date to normale ---------------- */
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft="10px";
+                    var nouveauTexteA = document.createTextNode(chambre.numeroChambre);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                    nouvelleCelluleA1.style.paddingLeft="10px";
+                    var nouveauTexteA1 = document.createTextNode(chambre.capaciteChambre);
+                    nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                    var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                    nouvelleCelluleA2.style.paddingLeft="10px";
+                    var nouveauTexteA2 = document.createTextNode(chambre.nbrPlaceLibre);
+                    nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                    var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                    nouvelleCelluleA3.style.paddingLeft="10px";
+                    var nouveauTexteA3 = document.createTextNode(chambre.nomBloc);
+                    nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                    /*document.getElementById("inputNumChambre").value = "";
+                    document.getElementById("inputCapaciteChambre").value = "";
+                    document.getElementById("inputDispoChambre").value = "";*/
+
+                });
+            }
+        },
+        error: function (e){
+            alert("erreur e : "+e);
+        }
+    })
+
+    /* ---------------------------- change select ------------------------------------- */
+    var uniteSelect = document.getElementById("selectBlocTypeCh");
+    uniteSelect.addEventListener("change",()=>{
+        console.log(uniteSelect.value)
+        $.ajax({
+            type: "GET",
+            url : "/getByTypeBloc?type="+uniteSelect.value+"",
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableChambre");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, chambre) {
+
+                        /*------------ convert date to normale ---------------- */
+                        /*let date0000 = credit.datePayementVente.toString();
+                        let da = date0000.substring(0, date0000.indexOf('.'));
+                        let date3 = new Date(da + "-03:00")
+                        let date4 = date3.toISOString();
+                        let date5 = date4.substring(0, date4.indexOf("."));
+                        let date6 = date5.replace("T", " ")*/
+                        /*--------- fin convert date to normale ---------------- */
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft="10px";
+                        var nouveauTexteA = document.createTextNode(chambre.numeroChambre);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                        nouvelleCelluleA1.style.paddingLeft="10px";
+                        var nouveauTexteA1 = document.createTextNode(chambre.capaciteChambre);
+                        nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                        var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                        nouvelleCelluleA2.style.paddingLeft="10px";
+                        var nouveauTexteA2 = document.createTextNode(chambre.nbrPlaceLibre);
+                        nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                        var nouvelleCelluleA3 = nouvelleLigneA.insertCell(3);
+                        nouvelleCelluleA3.style.paddingLeft="10px";
+                        var nouveauTexteA3 = document.createTextNode(chambre.nomBloc);
+                        nouvelleCelluleA3.appendChild(nouveauTexteA3);
+
+                        document.getElementById("inputNumChambre").value = "";
+                        document.getElementById("inputCapaciteChambre").value = "";
+                        document.getElementById("inputDispoChambre").value = "";
+
+                    });
+                }
+            },
+            error: function (e){
+                alert("erreur e : "+e);
+            }
+        })
+    })
+</script>
+
+</body>
+</html>

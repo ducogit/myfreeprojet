@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body style="background-color: transparent">
+
+<!-- *********************************************** content *********************************** -->
+
+<div class="container-fluid" style="height: 100vh;padding-top: 20px">
+
+    <div class="row mb-1">
+        <div class="col-12 mt-1">
+            <div class="boutons_modals head" style="padding-right: 0">
+                <ul class="ul-nav">
+                    <li class="d-flex" style="display: flex;justify-content: left">
+                        <h4 style="color: #aaa;font-size: 18px;font-family: cursive;font-weight: 700;">Employés</h4>
+                    </li>
+                </ul>
+                <ul class="ul-nav" style="margin-right: 0">
+                    <li class="ul-li-nav search" style="margin-right: 0">
+                        <div class="input-group inputSearchStock" id="inputSearch">
+                            <input type="text" required class="form-control dropdown-toggle" placeholder="Search..." id="input-search-employer">
+                            <button id="btn-search-Employer" class="input-group-text btn-primary" type="submit"><i class="ri ri-search-2-line"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row" style="margin: 0">
+        <div class="boutons_modals">
+            <ul class="ul-nav">
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnNouvelleFonction">Nouvelle fonction</a>
+                </li>
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnNouveauEmployer">Nouveau employer</a>
+                </li>
+            </ul>
+            <ul class="ul-nav">
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnExcelEmployer"><img src="../images/excel1_24px.png" style="height: 20px;width: 16px"></a>
+                </li>
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnPrintEmployer"><img src="../images/print1_24px.png" style="height: 16px"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 0;padding: 0" id="utilisateur">
+        <div class="col-lg-2 col-xl-2 col-md-3 col-sm-12" style="padding: 1px">
+            <div class="row" style="margin: 0 -10px">
+                <div class="col-12">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <table class="table text-dark" id="tableFonction" style="border: 1px solid #666">
+                                <thead style="border: 1px solid #666">
+                                <tr>
+                                    <th>Fonction</th>
+                                </tr>
+                                </thead>
+                                <tbody style="border: 1px solid #666">
+                                <tr style="--bs-table-hover-bg: rgba(20,22,35,1);">
+                                    <td style="min-height: 36px;height: 36px;padding-left: 5px"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div> <!-- end card body-->
+                    </div> <!-- end card -->
+                </div><!-- end col-->
+            </div>
+        </div>
+        <div class="col-lg-10 col-xl-10 col-md-9 col-sm-12" style="padding: 1px">
+            <div class="row" style="margin: 0 -10px">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-pane show active" id="buttons-table-previewEmployer">
+                                <div  id="tableEmployer2">
+                                    <!--<h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES EMPLOYER ENREGISTRES</h4>-->
+                                    <table id="tableEmployer" class="table text-dark" style="border: 1px solid #666">
+                                        <thead style="border: 1px solid #666">
+                                        <tr>
+                                            <th>Nom & Prénom</th>
+                                            <th>Fonction</th>
+                                            <th>CIN</th>
+                                            <th>Email</th>
+                                            <th>Pseudo</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody style="border: 1px solid #666">
+                                        <tr>
+                                            <td></td>
+                                            <tb></tb>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!------------------------------------------------------ tous les modals --------------------------------- -->
+<div id="tableCleintImprimer" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-contentClient">
+            <div class="modal-body"  id="tableEmployerImprimer">
+                <h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES EMPLOYERS</h4>
+                <table id="tableEmployerImprimer0" class="table text-dark" style="border: 1px solid #666">
+                <thead style="border: 1px solid #666">
+                <tr>
+                    <th>Nom & Prénom</th>
+                    <th>Fonction</th>
+                    <th>CIN</th>
+                    <th>Email</th>
+                    <th>Pseudo</th>
+                </tr>
+                </thead>
+                <tbody style="border: 1px solid #666">
+                <tr>
+                    <td></td>
+                    <tb></tb>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalNouveauEmployer" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 480px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouveau bloc</h6>
+                    <a type="button" id="btnCloseModalAvoir" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputNomEmployer" class="form-label mt-1">Nom</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomEmployer" name="inputNomEmployer" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputPrenomEmployer" class="form-label mt-1">Prénoms</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputPrenomEmployer" name="inputPrenomEmployer" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputCinEmployer" class="form-label mt-1">Cin</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputCinEmployer" name="inputCinEmployer" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="slectNomFonction" class="form-label mt-1">Fonction</label>
+                            </div>
+                            <div class="col-8">
+                                <select id="slectNomFonction" name="slectNomFonction" class="form-select" style="width: 208px;height: 32px;border-radius: 3px">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputEmailEmployer" class="form-label mt-1">Email</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputEmailEmployer" name="inputEmailEmployer" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputPseudoEmployer" class="form-label mt-1">Pseudo</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputPseudoEmployer" name="inputPseudoEmployer" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputPasswordEmployer" class="form-label mt-1">Mot de passe</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputPasswordEmployer" name="inputPasswordEmployer" type="password" class="form-control mt-1" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerEmployerModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterEmployerModal" type="button" class="btn btn-primary btn-enregistrer">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalNouvelleFonction" class="modal modalEnc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-content modal-contentEnc" style="width: 400px;height: 220px;margin-top: 50px;background: rgb(24,35,50);box-shadow: 0 0 10px rgba(200,200,200,0.9)">
+        <div class="container corpsprixSpecial" style="margin: 0">
+            <form class="modal-content" style="background: none;border: none">
+                <div class="modal-header" style="height: 50px">
+                    <h6 class="modal-title" id="standard-modalLabel" style="font-weight: 500;color: #ddd">Nouvelle fonction</h6>
+                    <a type="button" id="btnCloseModalFonction" class="btn"></a>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div class="row mb-1">
+                            <div class="col-4">
+                                <label for="inputNomFonction" class="form-label mt-1">Fonction</label>
+                            </div>
+                            <div class="col-8">
+                                <input id="inputNomFonction" name="inputNomFonction" type="text" class="form-control mt-1" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer" style="justify-content: center">
+                    <button id="btnAnnulerFonctionModal" type="button" class="btn btn-danger" >Annuler</button>
+                    <button id="btnAjouterFonctionModal" type="button" class="btn btn-primary btn-enregistrer">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-------------------------------------------------------------------- script ------------------------------->
+
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/table2excel.js"></script>
+<script src="../js/print.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+
+<script>
+
+    var boutonImprimerUser = document.getElementById("btnPrintEmployer");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableEmployer2',
+            type: 'html',
+            targetStyles: ['*','color:black'],
+        });
+    }
+
+
+    var boutonExcelClient = document.getElementById("btnExcelEmployer");
+    boutonExcelClient.addEventListener('click',Export);
+    function Export() {
+        $("#tableEmployer").table2excel({
+            filename: "Employer_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+
+
+    /* ----------------------- filtrage du tableau -------------------- */
+    var inputSearch = document.getElementById("input-search-employer");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("tableEmployer");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+
+
+
+    document.getElementById("btnAjouterEmployerModal").addEventListener('click',function (){
+        var inputNomEmployer = document.getElementById("inputNomEmployer");
+        var inputPrenomEmployer = document.getElementById("inputPrenomEmployer");
+        var inputCinEmployer = document.getElementById("inputCinEmployer");
+        var selectFonctionEmployer = document.getElementById("slectNomFonction");
+        var inputEmailEmployer = document.getElementById("inputEmailEmployer");
+        var inputPseudoEmployer = document.getElementById("inputPseudoEmployer");
+        var inputPassword = document.getElementById("inputPasswordEmployer");
+
+        var formDataTB = {
+            nomEmployer: inputNomEmployer.value,
+            prenomEmployer: inputPrenomEmployer.value,
+            fonctionEmployer: selectFonctionEmployer.value,
+            cinEmployer: inputCinEmployer.value,
+            emailEmployer: inputEmailEmployer.value,
+            pseudoEmployer: inputPseudoEmployer.value,
+            motPassEmployer: inputPassword.value,
+            dateEmployer: new Date()
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/SaveEmployer",
+            data: JSON.stringify(formDataTB),
+            dataType: 'json',
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableEmployer");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, bloc) {
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft = "10px";
+                        var nouveauTexteA = document.createTextNode(bloc.nomEmployer+" "+bloc.nomEmployer);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                        nouvelleCelluleA1.style.paddingLeft = "10px";
+                        var nouveauTexteA1 = document.createTextNode(bloc.fonctionEmployer);
+                        nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                        var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                        nouvelleCelluleA2.style.paddingLeft = "10px";
+                        var nouveauTexteA2 = document.createTextNode(bloc.emailEmployer);
+                        nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(3);
+                        nouvelleCelluleA.style.paddingLeft = "10px";
+                        var nouveauTexteA = document.createTextNode(bloc.pseudoEmployer);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(4);
+                        nouvelleCelluleA.style.paddingLeft = "10px";
+                        var nouveauTexteA = document.createTextNode(bloc.motPassEmployer);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+                    })
+                    document.getElementById("modalNouveauEmployer").style.display="none";
+                }
+            },
+            error: function (e) {
+                alert("erreur : " + a)
+            }
+
+        });
+    });
+    $.ajax({
+        type: "GET",
+        url: "/GetAllEmployer",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableEmployer");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, bloc) {
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft = "10px";
+                    var nouveauTexteA = document.createTextNode(bloc.nomEmployer+" "+bloc.nomEmployer);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA1 = nouvelleLigneA.insertCell(1);
+                    nouvelleCelluleA1.style.paddingLeft = "10px";
+                    var nouveauTexteA1 = document.createTextNode(bloc.fonctionEmployer);
+                    nouvelleCelluleA1.appendChild(nouveauTexteA1);
+
+                    var nouvelleCelluleA2 = nouvelleLigneA.insertCell(2);
+                    nouvelleCelluleA2.style.paddingLeft = "10px";
+                    var nouveauTexteA2 = document.createTextNode(bloc.emailEmployer);
+                    nouvelleCelluleA2.appendChild(nouveauTexteA2);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(3);
+                    nouvelleCelluleA.style.paddingLeft = "10px";
+                    var nouveauTexteA = document.createTextNode(bloc.pseudoEmployer);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(4);
+                    nouvelleCelluleA.style.paddingLeft = "10px";
+                    var nouveauTexteA = document.createTextNode(bloc.motPassEmployer);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+                })
+                document.getElementById("modalNouveauEmployer").style.display="none";
+            }
+        },
+        error: function (e) {
+            alert("erreur : " + a)
+        }
+
+    });
+
+    var btnNouveauEmployer = document.getElementById("btnNouveauEmployer");
+    btnNouveauEmployer.addEventListener('click',function (){
+        document.getElementById("modalNouveauEmployer").style.display="block";
+        $.ajax({
+            type: "GET",
+            url: "/GetAllFonction",
+            success: function (result) {
+                if (result.status === "success") {
+                    var selectB = document.getElementById("slectNomFonction");
+                    var optionB = selectB.querySelectorAll("option");
+                    for (var i = 0; i < optionB.length; i++) {
+                        optionB[i].remove();
+                    }
+                    $.each(result.data, function (i, chambre) {
+
+                        var nouvelleOption = document.createElement("option");
+                        nouvelleOption.value = chambre.nomType;
+                        nouvelleOption.appendChild(document.createTextNode(chambre.nomFonction))
+                        selectB.appendChild(nouvelleOption);
+
+                    });
+                }
+            },
+            error: function (e) {
+                alert("erreur e : " + e);
+            }
+        })
+    });
+    var btnAnnulerEmployer = document.getElementById("btnAnnulerEmployerModal");
+    btnAnnulerEmployer.addEventListener('click',function (){
+        document.getElementById("modalNouveauEmployer").style.display="none";
+    });
+    document.getElementById("btnCloseModalAvoir").addEventListener('click',function (){
+        document.getElementById("modalNouveauEmployer").style.display="none";
+    });
+
+    var btnNovelleFonction = document.getElementById("btnNouvelleFonction");
+    btnNovelleFonction.addEventListener('click',function (){
+        document.getElementById("modalNouvelleFonction").style.display="block";
+    })
+    var btnCloseNovelleFonction = document.getElementById("btnCloseModalFonction");
+    btnCloseNovelleFonction.addEventListener('click',function (){
+        document.getElementById("modalNouvelleFonction").style.display="none";
+    })
+    var btnAnnulerNovelleFonction = document.getElementById("btnAnnulerFonctionModal");
+    btnAnnulerNovelleFonction.addEventListener('click',function (){
+        document.getElementById("modalNouvelleFonction").style.display="none";
+    })
+
+    /* *************************** filtrage du tableau ************************************ */
+    var inputSearch = document.getElementById("input-search-employer");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("tableEmployer");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+    /* ****************** print pageListe client *************************************** */
+
+    var boutonImprimerUser = document.getElementById("btnPrintEmployer");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableEmployerImprimer',
+            type: 'html',
+            targetStyles: ['*']
+        });
+    }
+
+    /* ********************** exporter tableClient vers excel ******************************** */
+
+    var boutonExcelUser = document.getElementById("btnExcelEmployer");
+    boutonExcelUser.addEventListener('click',Export);
+    function Export() {
+        $("#tableEmployerImprimer").table2excel({
+            filename: "Employer_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+
+
+    /* ------------------------------------ ----------------------------------------- */
+    document.getElementById("btnAjouterFonctionModal").addEventListener('click',function () {
+        /*- --------------------- insertion des donnees ---------------- */
+        var formDataTB = {
+            codeFonction: "",
+            nomFonction: $("#inputNomFonction").val(),
+            dateFonction: new Date(),
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/SaveFonction",
+            data: JSON.stringify(formDataTB),
+            dataType: 'json',
+            success: function (result) {
+                if (result.status === "success") {
+                    var tableFacAvoir = document.getElementById("tableFonction");
+                    var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                    tableFacAvoir.removeChild(tbodyFacA);
+                    var nouveauTbodyA = document.createElement("tbody");
+                    tableFacAvoir.appendChild(nouveauTbodyA);
+                    $.each(result.data, function (i, bloc) {
+
+                        var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                        var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                        nouvelleCelluleA.style.paddingLeft = "10px";
+                        var nouveauTexteA = document.createTextNode(bloc.nomFonction);
+                        nouvelleCelluleA.appendChild(nouveauTexteA);
+                    })
+                    document.getElementById("modalNouveauEmployer").style.display="none";
+                }
+            },
+            error: function (e) {
+                alert("erreur : " + a)
+            }
+
+        });
+    })
+
+    $.ajax({
+        type: "GET",
+        url: "/GetAllFonction",
+        success: function (result) {
+            if (result.status === "success") {
+                var tableFacAvoir = document.getElementById("tableFonction");
+                var tbodyFacA = tableFacAvoir.querySelector("tbody");
+                tableFacAvoir.removeChild(tbodyFacA);
+                var nouveauTbodyA = document.createElement("tbody");
+                tableFacAvoir.appendChild(nouveauTbodyA);
+                $.each(result.data, function (i, bloc) {
+
+                    var nouvelleLigneA = nouveauTbodyA.insertRow(-1);
+
+                    var nouvelleCelluleA = nouvelleLigneA.insertCell(0);
+                    nouvelleCelluleA.style.paddingLeft = "10px";
+                    var nouveauTexteA = document.createTextNode(bloc.nomFonction);
+                    nouvelleCelluleA.appendChild(nouveauTexteA);
+                })
+                document.getElementById("modalNouveauEmployer").style.display="none";
+            }
+        },
+        error: function (e) {
+            alert("erreur : " + a)
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

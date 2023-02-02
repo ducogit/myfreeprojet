@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Log.1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <link href="../image/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../image/remixicon/remixicon.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet" >
+
+    <link href="../css/print.min.css" rel="stylesheet">
+    <link href="../css/simplebar.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body style="background-color: transparent">
+
+<!-- *********************************************** content *********************************** -->
+
+<div class="container-fluid" style="height: 100vh;padding-top: 20px">
+
+    <div class="row mb-1">
+        <div class="col-12 mt-1">
+            <div class="boutons_modals head" style="padding-right: 0">
+                <ul class="ul-nav">
+                    <li class="d-flex" style="display: flex;justify-content: left">
+                        <h4 style="color: #aaa;font-size: 18px;font-family: cursive;font-weight: 700;">Résident</h4>
+                    </li>
+                </ul>
+                <ul class="ul-nav" style="margin-right: 0">
+                    <li class="ul-li-nav search" style="margin-right: 0">
+                        <div class="input-group inputSearchStock" id="inputSearch">
+                            <input type="text" required class="form-control dropdown-toggle" placeholder="Search..." id="input-search-stock">
+                            <button id="btn-search-stick" class="input-group-text btn-primary" type="submit"><i class="ri ri-search-2-line"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row" style="margin: 0">
+        <div class="boutons_modals">
+            <ul class="ul-nav">
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary">Tous les bloc</a>
+                </li>
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary">Tous les résidents</a>
+                </li>
+            </ul>
+            <ul class="ul-nav">
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnExcelResident"><img src="../images/excel1_24px.png" style="height: 20px;width: 16px"></a>
+                </li>
+                <li class="ul-li-nav">
+                    <a class="btn btn-primary" id="btnPrintResident"><img src="../images/print1_24px.png" style="height: 16px"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" style="margin: 0;padding: 0" id="utilisateur">
+        <div class="col-lg-2 col-xl-2 col-md-3 col-sm-12" style="padding: 1px">
+            <div class="row" style="margin: 0 -10px">
+                <div class="col-12">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <table class="table text-dark" id="tableFonction" style="border: 1px solid #666">
+                                <thead style="border: 1px solid #666">
+                                <tr>
+                                    <th>Bloc</th>
+                                </tr>
+                                </thead>
+                                <tbody style="border: 1px solid #666">
+                                <tr th:each="bloc:${blocList}" style="--bs-table-hover-bg: rgba(20,22,35,1);">
+                                    <td th:text="${bloc.getNomBloc()}" style="min-height: 36px;height: 36px;padding-left: 5px"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div> <!-- end card body-->
+                    </div> <!-- end card -->
+                </div><!-- end col-->
+            </div>
+        </div>
+        <div class="col-lg-10 col-xl-10 col-md-9 col-sm-12" style="padding: 1px">
+            <div class="row" style="margin: 0 -10px">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="tab-pane show active" id="buttons-table-preview">
+                                <table id="datatable-buttons" class="table text-dark" style="border: 1px solid #666">
+                                    <thead style="border: 1px solid #666">
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Nom & Prénom</th>
+                                        <th>DateNaisse</th>
+                                        <th>LieuNaisse</th>
+                                        <th>Filière</th>
+                                        <th>Serie Bacc</th>
+                                        <th>Année Bacc</th>
+                                        <th style="width: 26px;height: 26px;min-width: 26px;max-width: 26px"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="border: 1px solid #666">
+                                    <tr th:each="resident:${residentList}">
+                                        <td>
+                                            <img alt="" th:src="*{'data:image/jpeg;base64,'+{resident.getPhotoResident}}" style="max-height: 26px;min-height: 26px;max-width: 26px;min-width: 26px;border-radius: 3px">
+                                        </td>
+                                        <td th:text="${resident.getNomResident()+' '+resident.getPrenomResident()}">nom</td>
+                                        <td th:text="${resident.getDateNaisseResident()}">10/07/1998</td>
+                                        <td th:text="${resident.getLieuNaisseReaident()}">Rantolava</td>
+                                        <td th:text="${resident.getFiliereResident()}">MIA</td>
+                                        <td th:text="${resident.getSerieBaccResident()}">D</td>
+                                        <td th:text="${resident.getAnneBaccResident()}">2016</td>
+                                        <td style="padding-right: 3px">
+                                            <a class="btn supprimerVente" style="padding: 3px;width: 26px;height: 26px;border-radius: 3px;background-color: orangered;color: white;margin-top: -2px"><img src="../images/remove_user1_24px.png" style="height: 18px;vertical-align: top"></img></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ----------------------------- modal imprimer ------------------------------------------------------ -->
+<div id="tableArt-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="standard-modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="tableParentModalPrint">
+                    <h4 align="center" style="alignment: center;height: 40px;width: 100%;font-weight: 700;font-size: 16px;color: #223">LISTE DES RESIDENTS ENREGISTRES</h4>
+                    <table id="datatable-buttons2" class="table text-dark" style="border: 1px solid #666">
+                        <thead style="border: 1px solid #666">
+                        <tr>
+                            <th>Nom & Prénom</th>
+                            <th>DateNaisse</th>
+                            <th>LieuNaisse</th>
+                            <th>Filière</th>
+                            <th>Serie Bacc</th>
+                            <th>Année Bacc</th>
+                        </tr>
+                        </thead>
+                        <tbody style="border: 1px solid #666">
+                        <tr th:each="resident:${residentList}">
+                            <td th:text="${resident.getNomResident()+' '+resident.getPrenomResident()}">nom</td>
+                            <td th:text="${resident.getDateNaisseResident()}">10/07/1998</td>
+                            <td th:text="${resident.getLieuNaisseReaident()}">Rantolava</td>
+                            <td th:text="${resident.getFiliereResident()}">MIA</td>
+                            <td th:text="${resident.getSerieBaccResident()}">D</td>
+                            <td th:text="${resident.getAnneBaccResident()}">2016</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-------------------------------------------------------------------- script ------------------------------->
+
+
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery-3.5.1.min.js"></script>
+<script src="../js/table2excel.js"></script>
+<script src="../js/print.min.js"></script>
+<script src="../js/simplebar.min.js"></script>
+
+<script>
+    /* *************************** filtrage du tableau ************************************ */
+    var inputSearch = document.getElementById("input-search-stock");
+    inputSearch.addEventListener("keyup",function(){
+        var keyword = this.value;
+        keyword = keyword.toUpperCase();
+        var table_3 = document.getElementById("datatable-buttons");
+        var all_tr = table_3.getElementsByTagName("tr");
+        for(var i=0; i<all_tr.length; i++){
+            var all_columns = all_tr[i].getElementsByTagName("td");
+            for(j=0;j<all_columns.length; j++){
+                if(all_columns[j]){
+                    var column_value = all_columns[j].textContent || all_columns[j].innerText;
+                    column_value = column_value.toUpperCase();
+                    if(column_value.indexOf(keyword) > -1){
+                        all_tr[i].style.display = ""; // show
+                        break;
+                    }else{
+                        all_tr[i].style.display = "none"; // hide
+                    }
+                }
+            }
+        }
+    })
+
+    /* ****************** print pageListe client *************************************** */
+
+    var boutonImprimerUser = document.getElementById("btnPrintResident");
+    boutonImprimerUser.addEventListener('click',printUserAction);
+    function printUserAction() {
+        printJS({
+            printable: 'tableParentModalPrint',
+            type: 'html',
+            targetStyles: ['*']
+        });
+    }
+
+    /* ********************** exporter tableClient vers excel ******************************** */
+
+    var boutonExcelUser = document.getElementById("btnExcelResident");
+    boutonExcelUser.addEventListener('click',Export);
+    function Export() {
+        $("#tableParentModalPrint").table2excel({
+            filename: "Utilisateur_Liste "+new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate()+" "+new Date().getHours()+"h"+new Date().getMinutes()+"min .xls"
+        });
+    }
+</script>
+
+</body>
+</html>
